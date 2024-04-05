@@ -54,6 +54,7 @@ echo
 # Commit the dumps
 echo Commit changes...
 
+git add ./dump*.sql
 git commit -m "[DEPLOY] Database dumps"
 git push --no-verify
 
