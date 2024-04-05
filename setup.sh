@@ -64,7 +64,7 @@ echo
 # Setup the git-hooks folder
 echo Setting up Git hooks...
 
-git config core.hookPath .hooks
+git config core.hooksPath .hooks
 
 echo -e "\033[32mDone. \033[0m"
 echo

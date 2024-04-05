@@ -1,0 +1,60 @@
+#!/bin/sh
+#!/bin/bash
+
+mainBranch="refs/heads/main"
+
+# Ensure the push is on the pre-prod branch
+while read local_ref local_sha remote_ref remote_sha
+do
+  # if the push doesn't occur on the mainBranch, do nothing
+  if [ ! "$remote_ref" = $mainBranch ]
+  then
+    exit 0
+  fi
+done
+
+# Push occurs on mainBranch, so the script may go on
+
+# Checking that everyting is set up for the script to function
+DIR=${PWD##*/}
+DIR=${DIR:-/}
+WP_CONTAINER=${DIR,,}-wordpress-1
+DB_CONTAINER=${DIR,,}-db-1
+IP_ADDRESS=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $DB_CONTAINER)
+
+# Check the IP address, if it's empty, the dump can't happen so the script has to stop.
+if [ -z "${IP_ADDRESS}" ]
+then
+  echo
+  echo -e "\033[31mThe database couldn't be dumped.\033[0m"
+  echo -e "\033[33mPlease, ensure the Docker container is running (\033[0mdocker compose up\033[33m) and push again.\033[0m"
+  echo
+
+  exit 126;
+fi
+
+# The push is on mainBranch, the Docker container is running, so the pre-push script can execute.
+# Let's go!
+
+echo
+echo "#####################################################"
+echo "####### YANKAWORDPRESS DEPLOY PRE-PUSH SCRIPT #######"
+echo "#####################################################"
+echo
+
+# DB dump
+echo Dumping local database before deploying...
+
+docker exec $WP_CONTAINER bash -c "mysqldump -h $IP_ADDRESS -u wordpress -pwordpress --databases wordpress --no-create-info --no-create-db > dump.sql"
+docker exec $WP_CONTAINER bash -c "mysqldump -h $IP_ADDRESS -u wordpress -pwordpress --databases wordpress > dump_full.sql"
+
+echo -e "\033[32mDone.\033[0m"
+echo
+
+# Commit the dumps
+echo Commit changes...
+
+git commit -m "[DEPLOY] Database dumps"
+git push --no-verify
+
+exit 0
