@@ -58,4 +58,5 @@ git add ./dump*.sql
 git commit -m "[DEPLOY] Database dumps"
 git push --no-verify
 
-exit 0
+# Stop the current push, as we just pushed already ;)
+exit 1
