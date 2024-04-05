@@ -58,5 +58,10 @@ git add ./dump*.sql
 git commit -m "[DEPLOY] Database dumps"
 git push --no-verify
 
+echo -e "\033[32mDone.\033[0m"
+echo
+
+echo -e "\033[32mYou can safely ignore the 'failed to push' message below. The push DID happen.\033[0m
+
 # Stop the current push, as we just pushed already ;)
 exit 1
