@@ -1,4 +1,4 @@
 #!/bin/sh
 #!/bin/bash
 
-echo Test pre-commit hook
+echo This is the test pre-commit hook
