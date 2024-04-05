@@ -1,7 +1,7 @@
 
 # Yanka Wordpress
 
-This is a headless Wordpress project template, built on the custom theme [YankaForge](https://github.com/Ynk33/YankaForge), used a RestAPI to deliver content to a front website.
+This is a headless Wordpress project template, built on the custom theme [YankaForge](https://github.com/Ynk33/YankaForge), used as a RestAPI to deliver content to a front website.
 
 ## Installation
 
