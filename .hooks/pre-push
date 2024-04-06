@@ -2,12 +2,13 @@
 #!/bin/bash
 
 mainBranch="refs/heads/main"
+developBranch="refs/heads/main"
 
 # Ensure the push is on the pre-prod branch
 while read local_ref local_sha remote_ref remote_sha
 do
   # if the push doesn't occur on the mainBranch, do nothing
-  if [ ! "$remote_ref" = $mainBranch ]
+  if [ ! "$remote_ref" = $mainBranch ] && [ ! "$remote_ref" = $developBranch ]
   then
     exit 0
   fi
