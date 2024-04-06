@@ -30,12 +30,71 @@ then
   exit 126;
 fi
 
+read -p "What is the name of the project?    " -i "${DIR,,}" -e PROJECT_NAME
+echo -e "\033[32m$PROJECT_NAME\033[0m"
+echo
+
+read -p "What is the name of the repo on Github?    " -i "$PROJECT_NAME" -e REPO_NAME
+echo -e "\033[32m$PROJECT_NAME\033[0m"
+echo
+
 echo -e "- Wordpress container: \t\t\t\033[33m$WP_CONTAINER \033[0m"
 echo -e "- Database container: \t\t\t\033[33m$DB_CONTAINER \033[0m"
 echo -e "- Database container IP address: \t\033[33m$IP_ADDRESS \033[0m"
+echo -e "- The repo will be stored at \t\tgithub.com:Ynk33/\033[33m$REPO_NAME\033[0m"
+echo
+
+read -p "Do you confirm that these informations are correct? (y/n) " -n 1 -r
+echo
+echo
+
+# Check the reply value
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+  echo -e "\033[31mOops!"
+  echo -e "\033[33mNo worries. You can check these informations again and safely launch this script when you're ready to set this project up! \033[31m<3\033[0m"
+  echo  
+  [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+fi
 
 echo -e "\033[32mAll data ready! \033[0m"
 echo
+
+# Creating github environment
+echo Login into your Github account...
+gh auth login --with-token < C:/Users/ytira/.github/token.txt
+
+echo Checking if repo already exists...
+REPO_LIST=$(gh repo list)
+if echo "$REPO_LIST" | grep -qi "$REPO_NAME"
+then
+  echo Repo exists, skipping creation.
+else
+  echo Repo does not exist, creating it...
+  gh repo create $REPO_NAME --private --source=.
+fi
+
+echo Updating origin...
+git remote set-url origin git@github.com:Ynk33/$REPO_NAME
+
+echo Creating main branch...
+git branch main
+git add .
+git commit -m "First commit, project setup"
+git push -u origin main
+
+echo Creating develop branch...
+git checkout -b develop
+git add .
+git commit -m "First commit on develop, project setup"
+git push -u origin develop
+
+git checkout main
+
+echo -e "\033[32mDone. \033[0m"
+echo
+
+exit 1
 
 # Update the db.sh script to insert the Docker database container IP address
 echo Updating db script...
