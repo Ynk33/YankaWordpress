@@ -81,13 +81,13 @@ echo Creating main branch...
 git branch main
 git add .
 git commit -m "First commit, project setup"
-git push -u origin main
+git push --no-verify -u origin main
 
 echo Creating develop branch...
 git checkout -b develop
 git add .
 git commit -m "First commit on develop, project setup"
-git push -u origin develop
+git push --no-verify -u origin develop
 
 git checkout main
 
