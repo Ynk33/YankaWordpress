@@ -127,9 +127,11 @@ echo -e "\033[32mYour \033[0m$DIR\033[32m project is all set up.\033[0m"
 echo
 
 echo -e "2 branches have been set up in your git repository:"
-echo -e "\033[33mmain\033[0m is the main branch from which each new feature should start."
+echo
+echo -e "- \033[33mmain\033[0m is the main branch from which each new feature should start."
 echo -e "\tPushing on this branch will trigger the deployment in production."
-echo -e "\033[33mdevelop\033[0m is the development branch on which to merge completed new features."
+echo
+echo -e "- \033[33mdevelop\033[0m is the development branch on which to merge completed new features."
 echo -e "\tPushing on this branch will trigger the deployment in pre-production."
 echo -e "\tWhen new features are tested on this branch and ready to be deployed in production, \033[33mdevelop\033[0m can be merged on \033[33mmain\033[0m and pushed."
 echo
