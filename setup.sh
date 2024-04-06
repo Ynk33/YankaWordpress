@@ -93,7 +93,6 @@ git push --no-verify -u origin develop
 
 git checkout main
 
-echo
 echo -e "\033[32mDone. \033[0m"
 echo
 
@@ -101,36 +100,29 @@ echo
 echo Updating db script...
 
 sed -i -E "s|(IP_ADDRESS=).+|\1$IP_ADDRESS|g" db.sh
-
 echo -e "\033[32mDone. \033[0m"
-echo
 
 # Dump the database from the Docker container
 echo Executing db script on Docker container...
 
 docker exec $WP_CONTAINER bash -c "bash < ./db.sh"
-
 echo -e "\033[32mDone.\033[0m"
-echo
 
 # Revert the db.sh script, to leave no trace
 echo Reverting db script...
 
 git checkout -- db.sh
-
 echo -e "\033[32mDone. \033[0m"
-echo
 
 # Setup the git-hooks folder
 echo Setting up Git hooks...
 
 git config core.hooksPath .hooks
-
 echo -e "\033[32mDone. \033[0m"
-echo
 
 # All good!
 
+echo
 echo -e "\033[32mYour \033[0m$DIR\033[32m project is all set up.\033[0m"
 echo
 
@@ -142,7 +134,7 @@ echo -e "\tPushing on this branch will trigger the deployment in pre-production.
 echo -e "\tWhen new features are tested on this branch and ready to be deployed in production, \033[33mdevelop\033[0m can be merged on \033[33mmain\033[0m and pushed."
 echo
 
-echo -e "\t\033[32mHave fun! \033[0m"
-
+echo -e "\033[32mHave fun! \033[0m"
+echo
 echo "#####################################################"
 echo
