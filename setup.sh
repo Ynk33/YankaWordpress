@@ -142,7 +142,7 @@ echo -e "\tPushing on this branch will trigger the deployment in pre-production.
 echo -e "\tWhen new features are tested on this branch and ready to be deployed in production, \033[33mdevelop\033[0m can be merged on \033[33mmain\033[0m and pushed."
 echo
 
-echo "\t\033[32mHave fun! \033[0m"
+echo -e "\t\033[32mHave fun! \033[0m"
 
 echo "#####################################################"
 echo
