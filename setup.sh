@@ -87,8 +87,8 @@ echo
 
 echo Creating develop branch...
 git branch develop
-git merge develop
 git checkout develop
+git merge main
 git push --no-verify -u origin develop
 
 git checkout main
