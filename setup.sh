@@ -79,18 +79,21 @@ git remote set-url origin git@github.com:Ynk33/$REPO_NAME
 
 echo Creating main branch...
 git branch main
+git checkout main
 git add .
 git commit -m "First commit, project setup"
 git push --no-verify -u origin main
+echo
 
 echo Creating develop branch...
-git checkout -b develop
-git add .
-git commit -m "First commit on develop, project setup"
+git branch develop
+git merge develop
+git checkout develop
 git push --no-verify -u origin develop
 
 git checkout main
 
+echo
 echo -e "\033[32mDone. \033[0m"
 echo
 
