@@ -97,8 +97,6 @@ echo
 echo -e "\033[32mDone. \033[0m"
 echo
 
-exit 1
-
 # Update the db.sh script to insert the Docker database container IP address
 echo Updating db script...
 
@@ -118,7 +116,7 @@ echo
 # Revert the db.sh script, to leave no trace
 echo Reverting db script...
 
-sed -i -E "s|(IP_ADDRESS=).+|\1MY_IP|g" db.sh
+git checkout -- db.sh
 
 echo -e "\033[32mDone. \033[0m"
 echo
@@ -133,8 +131,18 @@ echo
 
 # All good!
 
-echo -e "\033[32mYour \033[0m$DIR\033[32m project is all set up. Have fun! \033[0m"
+echo -e "\033[32mYour \033[0m$DIR\033[32m project is all set up.\033[0m"
 echo
+
+echo -e "2 branches have been set up in your git repository:"
+echo -e "\033[33mmain\033[0m is the main branch from which each new feature should start."
+echo -e "\tPushing on this branch will trigger the deployment in production."
+echo -e "\033[33mdevelop\033m[0m is the development branch on which to merge completed new features."
+echo -e "\tPushing on this branch will trigger the deployment in pre-production."
+echo -e "\tWhen new features are tested on this branch and ready to be deployed in production, \033[33mdevelop\033[0m can be merged on \033[33mmain\033[0m and pushed."
+echo
+
+echo "\t\033[32mHave fun! \033[0m
 
 echo "#####################################################"
 echo
