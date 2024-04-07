@@ -16,12 +16,14 @@ do
   then
     exit 0
   else
+    echo Assessing preprod env...
     if [ "$remote_ref" = $developBranch ]
     then
       URL_SUFFIX="-preprod"
     fi
   fi
 done
+echo Suffix: $URL_SUFFIX
 
 # Push occurs on main or develop branch, so the script may go on
 
