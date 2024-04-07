@@ -14,7 +14,6 @@ do
   # if the push doesn't occur on the main or develop branch, do nothing
   if [ ! "$remote_ref" = $mainBranch ] && [ ! "$remote_ref" = $developBranch ]
   then
-    echo Ignore
     exit 0
   fi
 done
@@ -33,6 +32,8 @@ if [ "$remote_ref" = $developBranch ]
 then
   URL_SUFFIX="-preprod"
 fi
+
+echo Checking if https://${DIR,,}$URL_SUFFIX.yankadevlab.tech exists...
 if curl --head --silent --fail https://${DIR,,}$URL_SUFFIX.yankadevlab.tech 2> /dev/null;
  then
   echo "This page exists."
