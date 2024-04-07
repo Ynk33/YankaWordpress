@@ -37,7 +37,8 @@ if curl --head --silent --fail $URL 2> /dev/null;
  then
   echo "https://${DIR,,}$URL_SUFFIX.yankadevlab.tech found. All good!"
  else
-  echo "The URL $URL doesn't exist. Check your DNS settings to ensure this URL is ready before pushing for deployment."
+  echo -e "\033[31mThe URL $URL doesn't exist.\033[0m"
+  echo -e "\033[33mCheck your DNS settings to ensure this URL is ready before pushing for deployment.\033[0m"
   exit 1
 fi
 
