@@ -15,6 +15,11 @@ do
   if [ ! "$remote_ref" = $mainBranch ] && [ ! "$remote_ref" = $developBranch ]
   then
     exit 0
+  else
+    if [ "$remote_ref" = $developBranch ]
+    then
+      URL_SUFFIX="-preprod"
+    fi
   fi
 done
 
@@ -28,14 +33,6 @@ DB_CONTAINER=${DIR,,}-db-1
 IP_ADDRESS=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $DB_CONTAINER)
 
 # Check if the URL is properly set up
-while read local_ref local_sha remote_ref remote_sha
-do
-  if [ "$remote_ref" = $developBranch ]
-  then
-    URL_SUFFIX="-preprod"
-  fi
-done
-
 echo Checking if https://${DIR,,}$URL_SUFFIX.yankadevlab.tech exists...
 if curl --head --silent --fail https://${DIR,,}$URL_SUFFIX.yankadevlab.tech 2> /dev/null;
  then
