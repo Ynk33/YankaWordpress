@@ -12,7 +12,6 @@ echo Retrieving data...
 DIR=${PWD##*/}
 DIR=${DIR:-/}
 
-
 WP_CONTAINER=${DIR,,}-wordpress-1
 DB_CONTAINER=${DIR,,}-db-1
 
