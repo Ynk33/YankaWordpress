@@ -31,7 +31,7 @@ DB_CONTAINER=${DIR,,}-db-1
 IP_ADDRESS=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $DB_CONTAINER)
 
 # Check if the URL is properly set up
-URL=http://${DIR,,}$URL_SUFFIX.yankadevlab.tech
+URL=http://${DIR,,}$URL_SUFFIX.yankadevlab.com
 echo Checking if $URL exists...
 if curl --head --silent $URL 2> /dev/null;
  then
