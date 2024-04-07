@@ -35,7 +35,7 @@ URL=http://${DIR,,}$URL_SUFFIX.yankadevlab.tech
 echo Checking if $URL exists...
 if curl --head --silent --fail $URL 2> /dev/null;
  then
-  echo -e "\033[32mhttps://${DIR,,}$URL_SUFFIX.yankadevlab.tech found. All good!\033[0m"
+  echo -e "\033[32m$URL found. All good!\033[0m"
  else
   echo -e "\033[31mThe URL $URL doesn't exist.\033[0m"
   echo -e "\033[33mCheck your DNS settings to ensure this URL is ready before pushing for deployment.\033[0m"
