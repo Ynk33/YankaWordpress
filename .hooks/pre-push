@@ -9,9 +9,12 @@ URL_SUFFIX=""
 # Ensure the push is on the pre-prod branch
 while read local_ref local_sha remote_ref remote_sha
 do
+  echo Push on $remote_ref
+  
   # if the push doesn't occur on the main or develop branch, do nothing
   if [ ! "$remote_ref" = $mainBranch ] && [ ! "$remote_ref" = $developBranch ]
   then
+    echo Ignore
     exit 0
   fi
 done
