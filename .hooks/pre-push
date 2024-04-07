@@ -4,17 +4,19 @@
 mainBranch="refs/heads/main"
 developBranch="refs/heads/main"
 
+URL_SUFFIX=""
+
 # Ensure the push is on the pre-prod branch
 while read local_ref local_sha remote_ref remote_sha
 do
-  # if the push doesn't occur on the mainBranch, do nothing
+  # if the push doesn't occur on the main or develop branch, do nothing
   if [ ! "$remote_ref" = $mainBranch ] && [ ! "$remote_ref" = $developBranch ]
   then
     exit 0
   fi
 done
 
-# Push occurs on mainBranch, so the script may go on
+# Push occurs on main or develop branch, so the script may go on
 
 # Checking that everyting is set up for the script to function
 DIR=${PWD##*/}
@@ -22,6 +24,19 @@ DIR=${DIR:-/}
 WP_CONTAINER=${DIR,,}-wordpress-1
 DB_CONTAINER=${DIR,,}-db-1
 IP_ADDRESS=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $DB_CONTAINER)
+
+# Check if the URL is properly set up
+if [ "$remote_ref" = $developBranch ]
+then
+  URL_SUFFIX="-preprod"
+fi
+if curl --head --silent --fail https://${DIR,,}$URL_SUFFIX.yankadevlab.tech 2> /dev/null;
+ then
+  echo "This page exists."
+ else
+  echo "This page does not exist."
+  exit 1
+fi
 
 # Check the IP address, if it's empty, the dump can't happen so the script has to stop.
 if [ -z "${IP_ADDRESS}" ]
