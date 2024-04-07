@@ -2,7 +2,7 @@
 #!/bin/bash
 
 mainBranch="refs/heads/main"
-developBranch="refs/heads/main"
+developBranch="refs/heads/develop"
 
 URL_SUFFIX=""
 
