@@ -19,7 +19,7 @@
 -- Current Database: `wordpress`
 --
 
-USE `wordpress`;
+;
 
 --
 -- Table structure for table `wp_commentmeta`
@@ -412,4 +412,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-08  3:16:03
+-- Dump completed on 2024-04-08  3:18:10
