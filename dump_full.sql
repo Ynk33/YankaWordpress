@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.5.23-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: 172.18.0.2    Database: wordpress
+-- Host: 172.19.0.2    Database: wordpress
 -- ------------------------------------------------------
 -- Server version	10.6.4-MariaDB-1:10.6.4+maria~focal
 
@@ -412,4 +412,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-08  3:59:30
+-- Dump completed on 2024-04-08  5:56:20
