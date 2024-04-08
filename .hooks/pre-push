@@ -68,7 +68,7 @@ echo Dumping local database before deploying...
 docker exec $WP_CONTAINER bash -c "mysqldump -h $IP_ADDRESS -u wordpress -pwordpress --databases wordpress --no-create-info --no-create-db > dump.sql"
 docker exec $WP_CONTAINER bash -c "mysqldump -h $IP_ADDRESS -u wordpress -pwordpress --databases wordpress --no-create-db > dump_full.sql"
 
-sed -i "s/USE [^\s\\]wordpress[^\s\\]//g dump_full.sql"
+sed -i "s/USE [^\s\\]wordpress[^\s\\]//g" dump_full.sql
 
 echo -e "\033[32mDone.\033[0m"
 echo
