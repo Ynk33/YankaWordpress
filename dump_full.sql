@@ -19,8 +19,6 @@
 -- Current Database: `wordpress`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `wordpress` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-
 USE `wordpress`;
 
 --
@@ -414,4 +412,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-08  1:54:00
+-- Dump completed on 2024-04-08  3:16:03
