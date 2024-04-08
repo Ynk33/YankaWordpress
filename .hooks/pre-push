@@ -33,7 +33,7 @@ IP_ADDRESS=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}
 # Check if the URL is properly set up
 URL=http://${DIR,,}$URL_SUFFIX.yankadevlab.tech
 echo Checking if $URL exists...
-if curl --head --silent $URL 2> /dev/null;
+if curl --head --silent $URL 2>/dev/null;
  then
   echo -e "\033[32m$URL found. All good!\033[0m"
  else
