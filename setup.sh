@@ -81,7 +81,7 @@ echo Creating main branch...
 git branch main
 git checkout main
 git add .
-git commit -m "First commit, project setup"
+git commit -m "[IGNORE-WEBHOOKS] First commit, project setup"
 git push --no-verify -u origin main
 echo
 
