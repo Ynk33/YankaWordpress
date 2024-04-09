@@ -82,7 +82,25 @@ fi
 
 echo Updating origin...
 git remote set-url origin git@github.com:Ynk33/$PROJECT_NAME
+
+echo Creating main branch...
+git branch main
+git checkout main
+git add .
+git commit --allow-empty -m "[IGNORE-WEBHOOKS] First commit, project setup"
+git push --no-verify -u origin main
+echo
+
+echo Creating develop branch...
+git branch develop
+git checkout develop
+git merge main
+git push --no-verify -u origin develop
+
+git checkout main
+
 echo -e "\033[32mDone. \033[0m"
+echo
 
 # Update the db.sh script to insert the Docker database container IP address
 echo Updating db script...
@@ -99,28 +117,8 @@ echo -e "\033[32mDone.\033[0m"
 # Revert the db.sh script, to leave no trace
 echo Reverting db script...
 
-sed -i -E "s|(IP_ADDRESS=).+|\1MY_IP|g" db.sh
+git checkout -- db.sh
 echo -e "\033[32mDone. \033[0m"
-
-# Creating branches and update remote
-echo Creating main branch...
-git branch main
-git checkout main
-git add .
-git commit -m "[IGNORE-WEBHOOKS] First commit, project setup"
-git push --no-verify -u origin main
-echo
-
-echo Creating develop branch...
-git branch develop
-git checkout develop
-git merge main
-git push --no-verify -u origin develop
-
-git checkout main
-
-echo -e "\033[32mDone. \033[0m"
-echo
 
 # Setup the git-hooks folder
 echo Setting up Git hooks...
