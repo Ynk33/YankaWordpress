@@ -70,18 +70,18 @@ gh auth login --with-token < C:/Users/ytira/.github/token.txt
 
 echo Checking if repo already exists...
 REPO_LIST=$(gh repo list)
-if echo "$REPO_LIST" | grep -qi "$REPO_NAME"
+if echo "$REPO_LIST" | grep -qi "$PROJECT_NAME"
 then
   echo Repo exists, skipping creation.
 else
   echo Repo does not exist, creating it...
-  gh repo create $REPO_NAME --private --source=.
+  gh repo create $PROJECT_NAME --private --source=.
   echo Adding webhooks...
   cat hooks-config.json | gh api repos/Ynk33/test/hooks --input - -X POST
 fi
 
 echo Updating origin...
-git remote set-url origin git@github.com:Ynk33/$REPO_NAME
+git remote set-url origin git@github.com:Ynk33/$PROJECT_NAME
 
 echo Creating main branch...
 git branch main
