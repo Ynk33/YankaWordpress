@@ -1,4 +1,19 @@
 #!/bin/bash
+SILENT=false
+
+# Processing options
+for i in $@
+do
+  case $i in
+    --silent)
+      SILENT=true
+      ;;
+    *)
+      echo "Error: Invalid option $i"
+      exit
+      ;;
+  esac
+done
 
 echo
 echo "#####################################################"
@@ -16,9 +31,6 @@ PROJECT_NAME=${DIR}
 WP_CONTAINER=${DIR,,}-wordpress-1
 DB_CONTAINER=${DIR,,}-db-1
 
-# echo $PROJECT_NAME;
-# exit 0;
-
 IP_ADDRESS=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $DB_CONTAINER)
 
 # Check if the Docker container is running, and stop the script if not, because otherwise the db cannot be dumped
@@ -34,35 +46,42 @@ then
   exit 126;
 fi
 
-# read -p "What is the name of the project?    " -i "${DIR,,}" -e PROJECT_NAME
-# echo -e "\033[32m$PROJECT_NAME\033[0m"
-# echo
+if [ $SILENT == false ]
+then
+  read -p "What is the name of the project?    " -i "${DIR,,}" -e PROJECT_NAME
+  echo -e "\033[32m$PROJECT_NAME\033[0m"
+  echo
 
-# read -p "What is the name of the repo on Github?    " -i "$PROJECT_NAME" -e REPO_NAME
-# echo -e "\033[32m$REPO_NAME\033[0m"
-# echo
+  read -p "What is the name of the repo on Github?    " -i "$PROJECT_NAME" -e REPO_NAME
+  echo -e "\033[32m$REPO_NAME\033[0m"
+  echo
+fi
 
+# Display all gathered data and ask user to confirm the setup of the project
 echo -e "- Wordpress container: \t\t\t\033[33m$WP_CONTAINER \033[0m"
 echo -e "- Database container: \t\t\t\033[33m$DB_CONTAINER \033[0m"
 echo -e "- Database container IP address: \t\033[33m$IP_ADDRESS \033[0m"
 echo -e "- The repo will be stored at \t\tgithub.com:Ynk33/\033[33m$PROJECT_NAME\033[0m"
 echo
 
-# read -p "Do you confirm that these informations are correct? (y/n) " -n 1 -r
-# echo
-# echo
+if [ $SILENT == false ]
+then
+  read -p "Do you confirm that these informations are correct? (y/n) " -n 1 -r
+  echo
+  echo
 
-# Check the reply value
-# if [[ ! $REPLY =~ ^[Yy]$ ]]
-# then
-#   echo -e "\033[31mOops!"
-#   echo -e "\033[33mNo worries. You can check these informations again and safely launch this script when you're ready to set this project up! \033[31m<3\033[0m"
-#   echo  
-#   [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
-# fi
-
-# echo -e "\033[32mAll data ready! \033[0m"
-# echo
+  Check the reply value
+  if [[ ! $REPLY =~ ^[Yy]$ ]]
+  then
+    echo -e "\033[31mOops!"
+    echo -e "\033[33mNo worries. You can check these informations again and safely launch this script when you're ready to set this project up! \033[31m<3\033[0m"
+    echo  
+    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+  fi
+  
+  echo -e "\033[32mAll data ready! \033[0m"
+  echo
+fi
 
 # Creating github environment
 echo Login into your Github account...
