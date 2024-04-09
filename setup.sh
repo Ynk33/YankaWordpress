@@ -82,7 +82,27 @@ fi
 
 echo Updating origin...
 git remote set-url origin git@github.com:Ynk33/$PROJECT_NAME
+echo -e "\033[32mDone. \033[0m"
 
+# Update the db.sh script to insert the Docker database container IP address
+echo Updating db script...
+
+sed -i -E "s|(IP_ADDRESS=).+|\1$IP_ADDRESS|g" db.sh
+echo -e "\033[32mDone. \033[0m"
+
+# Dump the database from the Docker container
+echo Executing db script on Docker container...
+
+docker exec $WP_CONTAINER bash -c "bash < ./db.sh"
+echo -e "\033[32mDone.\033[0m"
+
+# Revert the db.sh script, to leave no trace
+echo Reverting db script...
+
+sed -i -E "s|(IP_ADDRESS=).+|\1MY_IP|g" db.sh
+echo -e "\033[32mDone. \033[0m"
+
+# Creating branches and update remote
 echo Creating main branch...
 git branch main
 git checkout main
@@ -101,24 +121,6 @@ git checkout main
 
 echo -e "\033[32mDone. \033[0m"
 echo
-
-# Update the db.sh script to insert the Docker database container IP address
-echo Updating db script...
-
-sed -i -E "s|(IP_ADDRESS=).+|\1$IP_ADDRESS|g" db.sh
-echo -e "\033[32mDone. \033[0m"
-
-# Dump the database from the Docker container
-echo Executing db script on Docker container...
-
-docker exec $WP_CONTAINER bash -c "bash < ./db.sh"
-echo -e "\033[32mDone.\033[0m"
-
-# Revert the db.sh script, to leave no trace
-echo Reverting db script...
-
-git checkout -- db.sh
-echo -e "\033[32mDone. \033[0m"
 
 # Setup the git-hooks folder
 echo Setting up Git hooks...
