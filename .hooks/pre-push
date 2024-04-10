@@ -75,7 +75,8 @@ echo
 echo Commit changes...
 
 git add ./dump*.sql
-git commit -m "[DEPLOY] Database dumps"
+LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+git commit -m "[DEPLOY] $LAST_COMMIT_MSG; Database dumps"
 git push --no-verify
 
 echo -e "\033[32mDone.\033[0m"
