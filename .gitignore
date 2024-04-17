@@ -19,6 +19,3 @@ wp-content/wp-cache-config.php
 # htaccess
 /.htaccess
 /.htpasswd
-
-# env
-.env
