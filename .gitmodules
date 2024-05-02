@@ -4,3 +4,6 @@
 [submodule "wp-content/themes/yankaforge"]
 	path = wp-content/themes/yankaforge
 	url = git@github.com:Ynk33/YankaForge
+[submodule ".\\wp-content\\plugins\\YankaWPDashboard"]
+	path = .\\wp-content\\plugins\\YankaWPDashboard
+	url = git@github.com:Ynk33/YankaWPDashboard
