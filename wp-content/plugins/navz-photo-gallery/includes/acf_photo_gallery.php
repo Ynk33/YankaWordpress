@@ -31,11 +31,11 @@ function acf_photo_gallery_make_images($attachment_ids, $field, $post_id = null,
 				'id' => $image->ID,
 				'title' => $title,
 				'caption' => $content,
-				'media_details' => $meta_data,
 				'full_image_url' => $full_url,
 				'thumbnail_image_url' => $thumbnail_url,
 				'large_srcset' => $large_srcset,
 				'medium_srcset' => $medium_srcset,
+				'media_details' => $meta_data,
 				'url' => $url,
 				'target' => $target
 			);
@@ -50,7 +50,7 @@ function acf_photo_gallery($field = null, $post_id = null, $order = 'ASC', $orde
 }
 
 function apgf_update_donation(){
-	if(!empty($_GET['nonce']) and wp_verify_nonce($_GET['nonce'], 'apgf-update-donation') and !empty($_GET['option'])){
+	if(!empty($_GET['nonce']) and wp_verify_nonce($_GET['nonce'], 'acf-photo-gallery-field\navz-photo-gallery-nonce') and !empty($_GET['option'])){
 		$option = sanitize_text_field($_GET['option']);
 		if(in_array($option, ['yes', 'no', 'already', 'later'])){
 			global $wpdb;
