@@ -116,34 +116,8 @@ git checkout develop
 git merge main
 git push --no-verify -u origin develop
 
-git checkout main
-
 echo -e "\033[32mDone. \033[0m"
 echo
-
-# Update the db.sh script to insert the Docker database container IP address
-echo Updating db script...
-
-sed -i -E "s|(IP_ADDRESS=).+|\1$IP_ADDRESS|g" db.sh
-echo -e "\033[32mDone. \033[0m"
-
-# Dump the database from the Docker container
-echo Executing db script on Docker container...
-
-docker exec $WP_CONTAINER bash -c "bash < ./db.sh"
-echo -e "\033[32mDone.\033[0m"
-
-# Revert the db.sh script, to leave no trace
-echo Reverting db script...
-
-git checkout -- db.sh
-echo -e "\033[32mDone. \033[0m"
-
-# Setup the git-hooks folder
-echo Setting up Git hooks...
-
-git config core.hooksPath .hooks
-echo -e "\033[32mDone. \033[0m"
 
 # All good!
 
@@ -159,6 +133,10 @@ echo
 echo -e "- \033[33mdevelop\033[0m is the development branch on which to merge completed new features."
 echo -e "\tPushing on this branch will trigger the deployment in pre-production."
 echo -e "\tWhen new features are tested on this branch and ready to be deployed in production, \033[33mdevelop\033[0m can be merged on \033[33mmain\033[0m and pushed."
+echo
+
+echo -e "\033[31m!!!Only one step missing!!!\033[0m"
+echo -e "Launch the command 'ydl db migrate <path/to/YankaWordpress>' to setup your database!"
 echo
 
 echo -e "\033[32mHave fun! \033[0m"
